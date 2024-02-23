@@ -2,12 +2,23 @@ import requests
 import json
 
 class GetRequester:
-
+    
     def __init__(self, url):
         self.url = url
 
     def get_response_body(self):
-        pass
+        response = requests.get(self.url)
+        return response.content
 
     def load_json(self):
-        pass
+        data_list = []
+        data = json.loads(self.get_response_body())
+        for x in data:
+            data_list.append(x)
+
+        return data_list
+        
+url = ('https://learn-co-curriculum.github.io/json-site-example/endpoints/people.json')
+requester = GetRequester(url)
+print(requester.load_json())
+
